@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: foo
+spec:
+  destination:
+    namespace: app
+    server: https://kubernetes.default.svc
+  source:
+    path: app
+    repoURL: https://github.com/ecrousseau/argo.git
+    targetRevision: main
+    directory:
+      jsonnet:
+        extVars: []
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
